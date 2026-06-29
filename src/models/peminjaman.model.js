@@ -24,7 +24,29 @@ const getAll = async () => {
   return rows
 }
 
+const searchByUsername = async (username) => {
+  const [rows] = await db.execute(
+    `
+    SELECT
+      users.id,
+      users.username,
+      peminjaman.judul_buku,
+      peminjaman.tanggal_pinjam,
+      peminjaman.tanggal_kembali,
+      peminjaman.status
+    FROM peminjaman
+    INNER JOIN users
+      ON peminjaman.user_id = users.id
+    WHERE users.username LIKE ?
+    `,
+    [`%${username}%`]
+  )
+
+  return rows
+}
+
 module.exports = {
   create,
-  getAll
+  getAll,
+  searchByUsername
 }

@@ -1,3 +1,4 @@
+console.log('SERVER FILE YANG DIPAKAI')
 require('dotenv').config()
 const app = require('./app')
 
